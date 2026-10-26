@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhavya Patel — AI & Data Engineering Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        slateBg: '#FAF9F6',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FAF9F6;
+            color: #0F172A;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+        }
+        .backdrop-blur-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-slateBg text-slate-900 antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg flex items-center space-x-2 text-xs font-mono pointer-events-none">
+        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+        <span id="toast-msg">Copied to clipboard!</span>
+    </div>
+
+    <!-- Sticky Navigation Bar -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 border-b border-transparent">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#intro" class="group flex items-center space-x-3 text-lg font-bold tracking-tight text-slate-900 hover:text-indigo-600 transition-colors">
+                <span class="w-9 h-9 rounded-lg bg-slate-900 text-white flex items-center justify-center font-mono text-base group-hover:bg-indigo-600 transition-colors">BP</span>
+                <span class="tracking-tight text-slate-800 group-hover:text-indigo-600">Bhavya Patel</span>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                <a href="#intro" class="hover:text-slate-900 transition-colors">Introduction</a>
+                <a href="#projects" class="hover:text-slate-900 transition-colors">Projects</a>
+                <a href="#courses" class="hover:text-slate-900 transition-colors">Coursework</a>
+                <a href="#writings" class="hover:text-slate-900 transition-colors">Publications</a>
+                <a href="#resume" class="hover:text-slate-900 transition-colors">Resume</a>
+            </nav>
+
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="https://github.com/bhavyapatelgithub" target="_blank" rel="noopener noreferrer" class="p-2 text-slate-600 hover:text-slate-900 transition-colors" title="GitHub Profile">
+                    <i data-lucide="github" class="w-5 h-5"></i>
+                </a>
+                <button onclick="copyToClipboard('xyz@gmail.com', 'Email copied!')" class="text-xs font-semibold uppercase tracking-wider px-4 py-2.5 rounded-lg bg-slate-900 text-white hover:bg-indigo-600 transition-colors duration-200">
+                    Get in Touch
+                </button>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-btn" class="md:hidden p-2 text-slate-700 hover:text-slate-900 focus:outline-none" aria-label="Toggle Menu">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 bg-white/95 backdrop-blur-md px-6 py-4 space-y-3">
+            <a href="#intro" class="mobile-nav-link block text-sm font-medium text-slate-700 hover:text-indigo-600">Introduction</a>
+            <a href="#projects" class="mobile-nav-link block text-sm font-medium text-slate-700 hover:text-indigo-600">Projects</a>
+            <a href="#courses" class="mobile-nav-link block text-sm font-medium text-slate-700 hover:text-indigo-600">Coursework</a>
+            <a href="#writings" class="mobile-nav-link block text-sm font-medium text-slate-700 hover:text-indigo-600">Publications</a>
+            <a href="#resume" class="mobile-nav-link block text-sm font-medium text-slate-700 hover:text-indigo-600">Resume</a>
+        </div>
+    </header>
+
+    <!-- SECTION 1: Introduction to Portfolio -->
+    <section id="intro" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-grid-pattern">
+        <canvas id="hero-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-40"></canvas>
+
+        <div class="max-w-4xl mx-auto px-6 py-20 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/80 shadow-xs text-xs font-medium text-slate-600 mb-8">
+                <span class="w-2 h-2 rounded-full bg-indigo-600 animate-pulse"></span>
+                AI & Data Engineering Specialist
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-6">
+                Bhavya Patel
+            </h1>
+
+            <p class="text-lg sm:text-xl md:text-2xl font-light text-slate-600 max-w-2xl mx-auto leading-relaxed mb-10">
+                Master's candidate at MIT following undergraduate studies at VIT Vellore. My focus centers on <span class="text-slate-900 font-medium underline decoration-indigo-300 decoration-2 underline-offset-4">artificial intelligence</span>, <span class="text-slate-900 font-medium underline decoration-indigo-300 decoration-2 underline-offset-4">scalable data engineering</span>, and building high-performance distributed systems.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#projects" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-slate-900 text-white text-sm font-semibold hover:bg-indigo-600 transition-colors shadow-md shadow-slate-900/5 flex items-center justify-center gap-2 group">
+                    <span>Explore Important Projects</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <a href="#resume" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-white border border-slate-200 text-slate-800 text-sm font-semibold hover:bg-slate-50 transition-colors shadow-xs flex items-center justify-center gap-2">
+                    <span>View Short Resume</span>
+                    <i data-lucide="file-text" class="w-4 h-4 text-slate-500"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: Important Projects -->
+    <section id="projects" class="py-24 border-t border-slate-200/60 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center space-x-4 mb-12">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight uppercase">IMPORTANT PROJECTS</h2>
+                <div class="h-px bg-slate-200 flex-1"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Project 1 -->
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 shadow-xs hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl w-fit mb-4">
+                            <i data-lucide="database" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Scalable Data Pipeline & Real-Time Analytics ETL</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                            Designed and deployed an automated, fault-tolerant streaming ETL architecture capable of ingesting and transforming millions of events daily with sub-second latency.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mt-2">
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-white border border-slate-200 text-slate-700">Apache Spark</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-white border border-slate-200 text-slate-700">Kafka</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-white border border-slate-200 text-slate-700">PostgreSQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 shadow-xs hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl w-fit mb-4">
+                            <i data-lucide="cpu" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Distributed Neural Network Inference Engine</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                            Built an optimized model runtime incorporating INT8 quantization and operator fusion to minimize memory usage and accelerate inference latency across distributed compute clusters.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mt-2">
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-white border border-slate-200 text-slate-700">PyTorch</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-white border border-slate-200 text-slate-700">ONNX</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-white border border-slate-200 text-slate-700">CUDA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 shadow-xs hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl w-fit mb-4">
+                            <i data-lucide="zap" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">High-Throughput Stream Processing Platform</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                            Developed a robust windowed analytics engine providing real-time data aggregation and anomaly detection across high-dimensional telemetry data streams.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mt-2">
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-white border border-slate-200 text-slate-700">Python</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-white border border-slate-200 text-slate-700">Flink</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-white border border-slate-200 text-slate-700">Docker</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: Important Classes & Coursework -->
+    <section id="courses" class="py-24 border-t border-slate-200/60 bg-slateBg">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="flex items-center space-x-4 mb-12">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight uppercase">IMPORTANT COURSES & ACADEMICS</h2>
+                <div class="h-px bg-slate-200 flex-1"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="p-6 bg-white rounded-2xl border border-slate-200/80 shadow-xs">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i data-lucide="book-open" class="w-5 h-5 text-indigo-600"></i>
+                        <h3 class="text-base font-bold text-slate-900">Distributed Systems</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        In-depth study of distributed consensus, fault tolerance, replication, RPC architectures, and concurrent state management in large-scale computing environments.
+                    </p>
+                </div>
+
+                <div class="p-6 bg-white rounded-2xl border border-slate-200/80 shadow-xs">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i data-lucide="book-open" class="w-5 h-5 text-indigo-600"></i>
+                        <h3 class="text-base font-bold text-slate-900">Applied Machine Learning</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Practical exploration of supervised and unsupervised learning models, feature engineering, regularization, model evaluation metrics, and predictive analytics.
+                    </p>
+                </div>
+
+                <div class="p-6 bg-white rounded-2xl border border-slate-200/80 shadow-xs">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i data-lucide="book-open" class="w-5 h-5 text-indigo-600"></i>
+                        <h3 class="text-base font-bold text-slate-900">Database Management & Big Data</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Focusing on relational and NoSQL database engines, indexing strategies, query execution optimization, and mass storage frameworks.
+                    </p>
+                </div>
+
+                <div class="p-6 bg-white rounded-2xl border border-slate-200/80 shadow-xs">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i data-lucide="book-open" class="w-5 h-5 text-indigo-600"></i>
+                        <h3 class="text-base font-bold text-slate-900">Deep Learning Architectures</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Advanced coursework covering convolutional neural networks, transformer mechanisms, optimization algorithms, and modern generative AI architectures.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: Publications & Writing Assessments -->
+    <section id="writings" class="py-24 border-t border-slate-200/60 bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="flex items-center space-x-4 mb-12">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight uppercase">PUBLICATIONS & WRITING ASSESSMENTS</h2>
+                <div class="h-px bg-slate-200 flex-1"></div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Article / Writing 1 -->
+                <div class="p-8 bg-slate-50 rounded-2xl border border-slate-200/80">
+                    <div class="flex items-center gap-2 text-xs font-mono text-indigo-600 font-semibold mb-2">
+                        <i data-lucide="file-text" class="w-4 h-4"></i>
+                        <span>TECHNICAL PAPER &bull; WRITING SHOWCASE</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Architecting Low-Latency Data Pipelines for Real-Time Artificial Intelligence</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        A detailed analytical paper exploring the tradeoffs between batch processing and stream processing frameworks. The paper details how memory management and schema evolution impact real-time feature stores in modern AI applications.
+                    </p>
+                </div>
+
+                <!-- Article / Writing 2 -->
+                <div class="p-8 bg-slate-50 rounded-2xl border border-slate-200/80">
+                    <div class="flex items-center gap-2 text-xs font-mono text-indigo-600 font-semibold mb-2">
+                        <i data-lucide="file-text" class="w-4 h-4"></i>
+                        <span>RESEARCH ESSAY &bull; WRITING SHOWCASE</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Evaluating Model Compression Techniques on Edge Devices</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        A concise review and synthesis of current literature on model pruning and quantization. This assessment highlights comparative benchmarks across memory usage, throughput, and accuracy retention during production deployments.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: Short Resume & Contact Information -->
+    <section id="resume" class="py-24 border-t border-slate-200/60 bg-slateBg">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="flex items-center space-x-4 mb-12">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight uppercase">SHORT RESUME & CONTACT</h2>
+                <div class="h-px bg-slate-200 flex-1"></div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 sm:p-10 border border-slate-200/80 shadow-xs space-y-8">
+                <!-- Profile Header -->
+                <div class="border-b border-slate-100 pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-900">Bhavya Patel</h3>
+                        <p class="text-sm text-indigo-600 font-mono mt-1">AI & Data Engineering Specialist</p>
+                    </div>
+                    <div class="flex flex-col gap-2 text-xs font-mono text-slate-600">
+                        <button onclick="copyToClipboard('xyz@gmail.com', 'Email copied!')" class="hover:text-indigo-600 flex items-center gap-1.5 text-left transition-colors">
+                            <i data-lucide="mail" class="w-3.5 h-3.5"></i> xyz@gmail.com
+                        </button>
+                        <a href="https://github.com/bhavyapatelgithub" target="_blank" class="hover:text-indigo-600 flex items-center gap-1.5 transition-colors">
+                            <i data-lucide="github" class="w-3.5 h-3.5"></i> github.com/bhavyapatelgithub
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div>
+                    <h4 class="text-xs font-mono font-bold uppercase text-slate-400 tracking-wider mb-3">Education</h4>
+                    <div class="space-y-3">
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                            <div class="flex justify-between items-start">
+                                <h5 class="text-sm font-bold text-slate-900">Master of Science (M.S.)</h5>
+                                <span class="text-xs font-mono text-indigo-600 font-medium">MIT</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mt-1">Focus on Systems Engineering & Applied Machine Learning</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                            <div class="flex justify-between items-start">
+                                <h5 class="text-sm font-bold text-slate-900">Bachelor of Technology (B.Tech)</h5>
+                                <span class="text-xs font-mono text-slate-500">VIT Vellore</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mt-1">Computer Science & Engineering Foundation</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Core Experience -->
+                <div>
+                    <h4 class="text-xs font-mono font-bold uppercase text-slate-400 tracking-wider mb-3">Experience & Practical Background</h4>
+                    <div class="space-y-3">
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                            <h5 class="text-sm font-bold text-slate-900">Software & Data Engineering Experience</h5>
+                            <p class="text-xs text-slate-600 mt-1">Gained hands-on practical experience through software engineering and analytical roles, building robust internal tools and optimizing automated pipeline architectures.</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                            <h5 class="text-sm font-bold text-slate-900">Hackathons & Technical Collaborations</h5>
+                            <p class="text-xs text-slate-600 mt-1">Active participant in collaborative engineering challenges focused on rapid prototyping, system architecture design, and algorithmic problem-solving.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Core Skills -->
+                <div>
+                    <h4 class="text-xs font-mono font-bold uppercase text-slate-400 tracking-wider mb-3">Core Technical Skills</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-lg text-xs font-mono bg-slate-100 text-slate-800">Python</span>
+                        <span class="px-3 py-1 rounded-lg text-xs font-mono bg-slate-100 text-slate-800">PyTorch</span>
+                        <span class="px-3 py-1 rounded-lg text-xs font-mono bg-slate-100 text-slate-800">SQL & PostgreSQL</span>
+                        <span class="px-3 py-1 rounded-lg text-xs font-mono bg-slate-100 text-slate-800">Apache Spark</span>
+                        <span class="px-3 py-1 rounded-lg text-xs font-mono bg-slate-100 text-slate-800">Apache Kafka</span>
+                        <span class="px-3 py-1 rounded-lg text-xs font-mono bg-slate-100 text-slate-800">Docker</span>
+                        <span class="px-3 py-1 rounded-lg text-xs font-mono bg-slate-100 text-slate-800">Git / GitHub</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-slate-200 bg-white text-center text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                &copy; <span id="current-year"></span> Bhavya Patel. All rights reserved.
+            </div>
+            <div class="flex items-center space-x-4 font-mono text-[11px] text-slate-400">
+                <span>MIT &bull; VIT Vellore</span>
+                <span>&bull;</span>
+                <span>AI & Data Engineering</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        lucide.createIcons();
+
+        // Clipboard function
+        function copyToClipboard(text, message) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                const toastMsg = document.getElementById('toast-msg');
+                toastMsg.textContent = message;
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                }, 2500);
+            });
+        }
+
+        // Sticky Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('bg-white/80', 'backdrop-blur-nav', 'border-slate-200/80', 'shadow-xs');
+            } else {
+                navbar.classList.remove('bg-white/80', 'backdrop-blur-nav', 'border-slate-200/80', 'shadow-xs');
+            }
+        });
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Subtle Canvas Particle Background
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, points = [];
+
+        function resizeCanvas() {
+            width = canvas.width = canvas.parentElement.clientWidth;
+            height = canvas.height = canvas.parentElement.clientHeight;
+            points = [];
+            const count = Math.floor((width * height) / 18000);
+            for (let i = 0; i < count; i++) {
+                points.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    radius: Math.random() * 1.5 + 1
+                });
+            }
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.2)';
+            ctx.strokeStyle = 'rgba(15, 23, 42, 0.05)';
+
+            for (let i = 0; i < points.length; i++) {
+                let p = points[i];
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                for (let j = i + 1; j < points.length; j++) {
+                    let p2 = points[j];
+                    let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateCanvas);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        window.onload = function() {
+            resizeCanvas();
+            animateCanvas();
+        };
+    </script>
+</body>
+</html>
